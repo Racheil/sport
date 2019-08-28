@@ -1,0 +1,39 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.rachel.sustsport.mapper.ItemsMapper">
+
+    <!--开启mapper级别的二级缓存-->
+    <cache/>
+
+    <select id="queryItems"  resultType="ItemMap" >
+        select * from user
+    </select>
+
+
+    <insert id="insertItem" useGeneratedKeys="true" parameterType="com.rachel.sustsport.entity.Item">
+         insert into user(openid,address,count,date,detail,time,type )values(#{openid},#{address},#{count},#{date},#{detail},#{time},#{type});
+    </insert>
+
+    <select id="queryItemsByType" parameterType="String" resultMap="ItemMap">
+            select openid,address,count,date,detail,time,type from user where type = #{type}
+    </select>
+
+
+    <resultMap id="ItemMap" type="com.rachel.sustsport.entity.Item">
+        <!--定义orders的相关信息-->
+        <id column="id" property="id"/>
+        <result column="address" property="address"/>
+        <result column="count" property="count"/>
+        <result column="date" property="date"/>
+        <result column="detail" property="detail"/>
+        <result column="time" property="time"/>
+        <result column="type" property="type"/>
+
+    </resultMap>
+
+
+</mapper>
